@@ -1,0 +1,15 @@
+setwd("C:/Users/Jiaju/Documents/RData/ExploratoryDataAnalysis/Programming Assignment1/")
+data<-read.table("household_power_consumption.txt", header=T, sep=';')
+attach(data)
+subset <- Date == "1/2/2007" | Date == "2/2/2007"
+subData <- data[subset, ]
+attach(subData)
+x <- paste(Date, Time)
+subData$DateTime <- strptime(x, "%d/%m/%Y %H:%M:%S")
+attach(subData)
+png(filename='plot3.png',units = "px", bg = "transparent")
+plot(DateTime, Sub_metering_1, type = "l", col = "black", xlab = "", ylab = "Energy sub metering")
+lines(DateTime, Sub_metering_2, col = "red")
+lines(DateTime, Sub_metering_3, col = "blue")
+legend("topright", col = c("black", "red", "blue"), c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),lwd = 1)
+dev.off()
